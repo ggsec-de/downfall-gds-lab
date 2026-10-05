@@ -10,6 +10,10 @@ One oracle geometry across three stages:
 - **Stage 2, kernel rep-movs leak** -- `kernel/`: a kernel `rep movs` copy
   aimed at an attacker-chosen address; byte-exact recovery of a module
   secret page and of the kernel's own `linux_banner`
+- **Stage 3 (M4), no-root end-to-end** -- `kernel/kaslr-prefetch.c` and
+  `kernel/banner-noroot.sh`: an unprivileged prefetch side channel
+  resolves the randomized kernel base, then the same bytewalk leak reads
+  `linux_banner` with no kallsyms and no root
 
 Oracle everywhere: slot stride `0x1040` (a 4096-byte stride aliases every
 slot into one L1D set on this CPU), 64 classes per row, hot reload under
@@ -146,7 +150,33 @@ bash reload.sh text        # built-in text page (M3 walk)
 SWZ=1 bash reconstruct.sh  # secret page -> recovered6 / recovered8
 bash banner.sh             # linux_banner walk, 128 bytes (sudo for kallsyms)
 COUNT=224 bash banner.sh   # wider banner window
+bash banner-noroot.sh      # M4: unprivileged KASLR + banner (no kallsyms)
 ```
+
+## Stage 2c (M4) -- unprivileged KASLR, no-root end-to-end (`kernel/kaslr-*`)
+
+The M3b banner walk still needed the address from kallsyms (root). M4
+removes that: an unprivileged prefetch side channel finds the KASLR
+slide, and the trigger targets the derived address via `ADDR=` (no root).
+
+- **SIDT (negative control)**: `kaslr-sidt` shows IDTR pointing into the
+  cpu_entry_area (`0xfffffe0000000000`, fixed) -- the classic SIDT KASLR
+  leak is closed on this kernel. Measured, not assumed.
+- **Prefetch scan**: `kaslr-prefetch` walks the text window in 2 MiB
+  steps, evicting the TLB between passes and taking one sample per
+  candidate per pass (a repeated-min statistic saturates: the prefetch
+  itself fills the TLB). The mapped image appears as a contiguous fast
+  run; its start is `_text` exactly (26 x 2 MiB, ~33-35 cycles vs ~49
+  outside). `PF_MODE=eb` adds a syscall before each sample (EntryBleed,
+  CVE-2022-4543); the syscall-path pages top the ranking.
+- **End-to-end**: `banner-noroot.sh` scans, derives
+  `banner = base + 0x13d18c0` (per-build offset: `_text 0xffffffff8ac00000`,
+  `linux_banner 0xffffffff8bfd18c0`), gates on `L`/`v`, and walks the
+  banner with the bytewalk + `ESHIFT` passes. Run 222601: detected base ==
+  `_text` exactly, gates passed (L 63/64, i 62/64, v 58/64), banner
+  recovered from the derived address (125/128 bytes exact in one run;
+  residual bit-6/copy jitter, removed by cross-run voting as in M3b).
+  Logs: `results/kernel-m4/`.
 
 ## What is new vs the upstream POC
 
@@ -159,6 +189,11 @@ COUNT=224 bash banner.sh   # wider banner window
 - **Two-pass full-byte decoding** -- `SWIZZLE` for the module page and
   `ESHIFT` (encoder-side shift) for any kernel memory, without modifying
   the target.
+- **Unprivileged KASLR resolution** -- measured SIDT negative
+  (cpu_entry_area), mapped-edge detection via the prefetch side channel
+  with TLB eviction, EntryBleed mode, and `ADDR=` absolute targeting; the
+  full chain resolves the address and reads the banner with no root and
+  no kallsyms.
 - **Evidence discipline** -- gated runners, artifact-aware decoding (the
   class-0 all-ones deposit saturates every row and blinds naive argmax
   decoding; decode from a top-3 dump with a hit threshold), a same-CPU

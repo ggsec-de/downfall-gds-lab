@@ -212,3 +212,21 @@ jitter; merging five runs (up to 40 votes per byte) resolves them (byte 97
 ',' wins 21:19 in the ESHIFT pass). Reading continues past the newline
 into adjacent kernel .rodata. Evidence: `results/kernel-m3b/recb-*` and
 `results/kernel-m3b/decode-merged.txt`.
+
+## Stage 2c, M4 -- unprivileged KASLR + no-root banner (2026-10-05)
+
+`kaslr-sidt` (negative control): `sidt` base = `0xfffffe0000000000`
+(cpu_entry_area, fixed) -- the classic SIDT KASLR leak is closed on this
+kernel. `kaslr-prefetch` (v2: TLB eviction per pass, one sample per
+candidate): the mapped image is a contiguous fast run at 2 MiB
+granularity (~33-35 cycles vs ~48-50 outside, 22-26 candidates depending
+on the run threshold), and across six runs the detected start was exactly
+`_text`. Root calibration (once): `_text 0xffffffff8ac00000`,
+`entry_SYSCALL_64 0xffffffff8ac00080`, `linux_banner 0xffffffff8bfd18c0`
+(offset from `_text`: 0x13d18c0). End-to-end `banner-noroot.sh`, run
+222601: base == `_text` exactly; derived banner == the kallsyms value;
+probes L/i/v 63/62/58 of 64; recovered 125/128 bytes exact in a single
+run (residual bit-6/copy jitter, as in M3b single runs). Evidence:
+`results/kernel-m4/recb-*222601*` and `decode-noroot-222601.txt`; the
+pre-fix run 222234 (wrong offset constant, 16 MiB low) failed the
+roll-call gate -- a negative control for the derived address.

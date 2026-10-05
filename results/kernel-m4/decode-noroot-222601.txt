@@ -1,0 +1,31 @@
+# M4c decode summary -- no-root end-to-end, run 222601 (2026-10-05)
+
+Chain: unprivileged prefetch scan -> detected base -> derived banner
+address -> bytewalk leak -> recovered text. No kallsyms, no root for the
+attack (sudo only for the sampler's /dev/mem UC page, as in all stages).
+
+KASLR scan (PF_PASSES=1000, entrybleed mode):
+  fast_run_start=0xffffffff8ac00000 pages=26 median=49 threshold=45
+Root calibration (sudo, once): _text=0xffffffff8ac00000,
+  entry_SYSCALL_64=0xffffffff8ac00080, linux_banner=0xffffffff8bfd18c0.
+=> detected base == _text exactly; banner offset = 0x13d18c0.
+
+Derived target: 0xffffffff8bfd18c0 (ktrigger ADDR= mode; the resolved
+offset ulong1=0xffffffffca7798b0 matches the M3b value for the true
+banner address).
+
+Roll-call probes (round 0, row 0): i=0 'L'(51) 63/64; i=1 'i'(22) 62/64;
+i=6 'v'(9) 58/64 -- gates passed.
+
+recovered6 (candidates): @()|)|@|))(.|.|@|.)(5|5|@|5)(8|8|@|8)( | |@| )(6|6|@|6)(%|%|@|%)(2|2|@|2)(3|3|@|3)()|)|@|))(/|/|@|/)(.|.|@|.)( | |@| )(7|7|@|7)(.|.|@|.)(1|1|@|1)(.|.|@|.)(5|5|@|5)(+|+|@|+)(+|+|@|+)(!|!|@|!)(,|,|@|,)()|)|@|))(-|-|@|-)(!|!|@|!)(.|.|@|.)($|$|@|$)(6|6|@|6)(4|4|@|4)( | |@| )((|(|@|()($|$|@|$)(%|%|@|%)(6|6|@|6)(%|%|@|%)(,|,|@|,)@(+|+|@|+)(!|!|@|!)(,|,|@|,)()|)|@|))(.|.|@|.)(/|/|@|/)(2|2|@|2)('|'|@|')()|)|@|))( | |@| )((|(|@|()(8|8|@|8)(8|8|@|8)(6|6|@|6)@(6|6|@|6)(4|4|@|4)(-|-|@|-)(,|,|@|,)()|)|@|))(.|.|@|.)(5|5|@|5)(8|8|@|8)(-|-|@|-)('|'|@|')(.|.|@|.)(5|5|@|5)(-|-|@|-)('|'|@|')(#|#|@|#)(#|#|@|#)(-|-|@|-)(1|1|@|1)(5|5|@|5)( | |@| )((|(|@|()@(%|%|@|%)("|"|@|")()|)|@|))(!|!|@|!)(.|.|@|.)( | |@| )(1|1|@|1)(5|5|@|5)(.|.|@|.)(3|3|@|3)(.|.|@|.)(0|0|@|0)(-|-|@|-)(2|2|@|2)()|)|@|))( | |@| )(1|1|@|1)(5|5|@|5)(.|.|@|.)(3|3|@|3)(.|.|@|.)(0|0|@|0)(,|,|@|,)( | |@| )@@@( | |@| )(,|,|@|,)($|$|@|$)( | |@| )((|(|@|()@@@( | |@| )@()|)|@|))(.|.|@|.)(5|5|@|5)(4|4|@|4)()|)|@|))(,|,|@|,)(3|3|@|3)( | |@| )(&|&|@|&)(/|/|@|/)(2|2|@|2)( | |@| )@(%|%|@|%)("|"|@|")()|)|@|))
+
+recovered8 (single run):  Linux version 7.1.5+kalimand64 (devel@kali.org)`(x86_64-linux-gnu-gcc-15 (Debian 15.3.0-2) 15.3.0, GNU ld (GNU Binutils for Debi
+
+vs /proc/version: 125/128 bytes exact; residual errors idx 24, 26, 47 are
+the known single-run bit-6/copy jitter (M3b: 127/128 single, exact after
+cross-run merge). Pre-fix run 222234 targeted the wrong (16 MB low)
+constant and failed the roll-call gate -- the gate doubles as a negative
+control for the derived address.
+
+Evidence: this directory's recb-*222601* files (scan, probes, votes,
+per-offset logs) and recb-*222234* (gate negative).

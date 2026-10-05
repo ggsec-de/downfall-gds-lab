@@ -5,6 +5,8 @@ spy/spy
 spy/spy-victim
 spy/devmem-probe
 kernel/ktrigger
+kernel/kaslr-sidt
+kernel/kaslr-prefetch
 
 # Evidence: keep only the curated decode summaries
 results/*
@@ -12,7 +14,10 @@ results/*
 !results/perf-host.txt
 !results/kernel-m3
 !results/kernel-m3b
+!results/kernel-m4
 results/kernel-m3/*
 !results/kernel-m3/decode-185750.txt
 results/kernel-m3b/*
 !results/kernel-m3b/decode-merged.txt
+results/kernel-m4/*
+!results/kernel-m4/decode-*.txt

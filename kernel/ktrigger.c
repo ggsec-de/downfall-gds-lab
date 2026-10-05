@@ -14,7 +14,9 @@
  *   MODE=kcopy: KOP=movsb|movsq|stosb|scalar|bytewalk via the KCOPY ioctl
  *              (bytewalk = LEN x 1-byte rep movsb at a fixed offset; M3).
  *              An explicitly set TARGET=banner rebases OFFSET onto
- *              linux_banner (kallsyms; needs root) for krep/kcopy too.
+ *              linux_banner (kallsyms; needs root) for krep/kcopy too;
+ *              ADDR=<hex> rebases OFFSET onto an absolute kernel
+ *              address instead (no root needed).
  *   MODE=swz:  S=<0-7> one SWIZZLE ioctl (rotate the secret page right;
  *              relative -- the module tracks the applied rotation)
  *
@@ -123,14 +125,18 @@ static unsigned long kallsyms_addr(const char *name)
 	return 0;
 }
 
-/* krep/kcopy offset resolution: by default OFFSET is relative to the
- * module's source page. An explicitly set TARGET=banner resolves
- * linux_banner via kallsyms (root) and rebases the offset onto it. */
+/* krep/kcopy offset resolution: default is relative to the module's
+ * source page; ADDR=<hex> makes OFFSET relative to an absolute kernel
+ * address (no root needed); an explicit TARGET=banner resolves
+ * linux_banner via kallsyms (root) and rebases onto it. */
 static unsigned long rebase_target(int target_set, const char *target,
-				   long offset, unsigned long source)
+				   long offset, unsigned long source,
+				   unsigned long addr)
 {
 	unsigned long base;
 
+	if (addr != 0)
+		return addr + (unsigned long)offset - source;
 	if (!target_set || strcmp(target, "banner") != 0)
 		return (unsigned long)offset;
 	base = kallsyms_addr("linux_banner");
@@ -175,7 +181,7 @@ int main(void)
 	const char *mode = getenv("MODE");
 	const char *target = getenv("TARGET");
 	long offset;
-	unsigned long len, iters, ulong1, ulong2;
+	unsigned long len, iters, ulong1, ulong2, addr;
 	int fd, cpu_id, user_byte, target_set;
 	unsigned int cmd = GDS_HELPER_LKM_IOCTL_OOB_GADGET;
 	unsigned long i;
@@ -188,6 +194,7 @@ int main(void)
 
 	cpu_id = env_int("CPU", 3);
 	iters = env_ul("ITERS", 0);
+	addr = env_ul("ADDR", 0);
 
 	user_byte = env_int("USER", -1);
 	if (user_byte >= 0 && user_byte <= 255) {
@@ -258,7 +265,7 @@ int main(void)
 		offset = env_long("OFFSET", 0x1000);
 		len = env_ul("LEN", 4095);
 		ulong1 = rebase_target(target_set, target, offset,
-				       info.source);
+				       info.source, addr);
 		ulong2 = len;
 		cmd = GDS_HELPER_LKM_IOCTL_KREPMOV;
 	} else if (strcmp(mode, "kcopy") == 0) {
@@ -283,7 +290,7 @@ int main(void)
 			return 2;
 		}
 		cp.offset = rebase_target(target_set, target, offset,
-					  info.source);
+					  info.source, addr);
 		cp.len = len;
 		cp.byte = env_ul("KAL", 0x47);
 		ulong1 = cp.offset;

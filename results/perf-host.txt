@@ -1,0 +1,22 @@
+date: 2026-10-04T22:23:42+02:00
+gov1: performance
+epp1: performance
+min_pct: 100
+min_freq: 800000
+max_freq: 3700000
+cpu3: 0
+sha256:
+c7798004bc5e09ec5ad985c3e23e929b64953329d631fe1558b31a2831270da4  downfall-oneshot
+perf-pair1-spec freq_during_khz: 3701951
+perf-pair1-spec freq_after_khz: 3701951
+perf-pair1-noencode freq_during_khz: 800000
+perf-pair1-noencode freq_after_khz: 800000
+perf-pair2-spec freq_during_khz: 800000
+perf-pair2-spec freq_after_khz: 800000
+perf-pair2-noencode freq_during_khz: 800000
+perf-pair2-noencode freq_after_khz: 800000
+perf-pair3-spec freq_during_khz: 800000
+perf-pair3-spec freq_after_khz: 800000
+perf-pair3-noencode freq_during_khz: 800000
+perf-pair3-noencode freq_after_khz: 800000
+date_end: 2026-10-04T22:23:43+02:00

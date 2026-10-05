@@ -1,0 +1,31 @@
+# Banner (M3b) merged decode summary -- runs 190500/191056/193002/204644/205528
+
+Method: banner.sh walks linux_banner bytes i at bytewalk offset i-16
+(ktrigger TARGET=banner, kallsyms under sudo). Each run yields up to 8 row
+votes per byte (spy top3 dump, strongest non-zero class >= 8 hits); a second
+walk with spy ESHIFT=2 (encoder-side qword shift) supplies bits 7..2. This
+file merges ALL recorded runs (1x128 + 2x224 + 2x128): up to 40 votes per
+byte for bytes 0..127; up to 16 beyond (only the two 224-count runs reach
+past byte 134).
+
+Result (merged): the full banner line + newline, byte-exact against
+/proc/version:
+
+  Linux version 7.1.5+kali-amd64 (devel@kali.org) (x86_64-linux-gnu-gcc-15 (Debian 15.3.0-2) 15.3.0, GNU ld (GNU Binutils for Debian) 2.46.90.20260712) #1 SMP PREEMPT_DYNAMIC Kali 7.1.5-1kali1 (2026-07-29)
+
+  first 203 characters: EXACT, then 0x0a newline; the read continues into
+  adjacent kernel .rodata (raw class decode, best-effort):
+  (x00)(x00)(x00)(x00)1(x0d)(x03)(x00)(x10)Tsrs(xc2)(xe9)ia(xf3)(xe0)(xf2)a(xf7)_(xf8)t(x05)T?
+
+Single-run notes: every recorded run reproduced the line with 0-6 residual
+byte errors (127/128 at best), all of the same kind -- bit-6 ties on
+punctuation (e.g. ',' 0x2c vs 'l' 0x6c share 6-bit class 19) or the window
+jittering ~+6 bytes into a neighbouring character. Merging runs resolves
+them (byte 97: ESHIFT votes 52:21 vs 36:19 -> ',' confirmed; pass A 19:26
+vs 17:14).
+
+Key gates from the runs: i=0 'L'(class 51) 64/64; i=1 'i'(22) 62/64;
+i=6 'v'(9) 63/64.
+
+Evidence: recb-*-<runid>.log (per-run logs), recb-votes-{A,B}-<runid>.txt
+(raw votes), recb-best-{A,B}-<runid>.txt (per-run decode).

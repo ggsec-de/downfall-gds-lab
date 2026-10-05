@@ -1,0 +1,18 @@
+# Build artifacts (built on the lab host; never track binaries here)
+downfall-oneshot
+kernel/variants/
+spy/spy
+spy/spy-victim
+spy/devmem-probe
+kernel/ktrigger
+
+# Evidence: keep only the curated decode summaries
+results/*
+!results/host.txt
+!results/perf-host.txt
+!results/kernel-m3
+!results/kernel-m3b
+results/kernel-m3/*
+!results/kernel-m3/decode-185750.txt
+results/kernel-m3b/*
+!results/kernel-m3b/decode-merged.txt

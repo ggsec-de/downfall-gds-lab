@@ -1,0 +1,19 @@
+date: 2026-10-04T21:56:46+02:00
+uname: Linux Detox-01 7.1.5+kali-amd64 #1 SMP PREEMPT_DYNAMIC Kali 7.1.5-1kali1 (2026-07-29) x86_64 GNU/Linux
+gcc: gcc (Debian 15.3.0-2) 15.3.0
+model: model name	: Intel(R) Core(TM) i3-6100 CPU @ 3.70GHz
+microcode: microcode	: 0xba
+cmdline: BOOT_IMAGE=/boot/vmlinuz-7.1.5+kali-amd64 root=UUID=4cdedab7-352e-41c5-933c-03bb76326dd6 ro quiet iomem=relaxed no_timer_check pti=off isolcpus=1 nmi_watchdog=0 rcupdate.rcu_cpu_stall_suppress=1 msr.allow_writes=on vdso=0 dis_ucode_ldr intel_idle.max_cstate=1 processor.max_cstate=1 no5lvl clearcpuid=308,295,514 splash 
+nproc: 3
+cpu3_online: 1
+gov_cpu1: powersave
+freq_cpu1_khz: 1599454
+gds: Vulnerable: No microcode
+sha256_before:
+c7798004bc5e09ec5ad985c3e23e929b64953329d631fe1558b31a2831270da4  downfall-oneshot
+b6594957444e7f40477619c10ee13d69d2fd7513bd13c824a96cd070b1964df5  downfall-oneshot.c
+413299a40661fa8e0be1c4c8eee8d65056228d97c968de142795be21c1339fd9  downfall.S
+a12d0d430170498571b9404c1f271d65a6f014c9585ae49cd4fd7cdacc97dd00  Makefile
+sha256_after:
+c7798004bc5e09ec5ad985c3e23e929b64953329d631fe1558b31a2831270da4  downfall-oneshot
+date_end: 2026-10-04T21:56:47+02:00

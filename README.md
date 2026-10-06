@@ -15,6 +15,10 @@ One oracle geometry across three stages:
   resolves the randomized kernel base, then the same bytewalk leak reads
   `linux_banner` with no kallsyms and no root
 
+**Video walkthrough:** [Downfall / GDS on Intel Skylake — Kernel Banner
+Recovery](https://www.youtube.com/watch?v=YsQyHNkjz_A) (GG Advanced IT
+Security, YouTube)
+
 Oracle everywhere: slot stride `0x1040` (a 4096-byte stride aliases every
 slot into one L1D set on this CPU), 64 classes per row, hot reload under
 150 cycles, `class = (byte ^ 0x3f) & 0x3f`. Full numbers and reading:

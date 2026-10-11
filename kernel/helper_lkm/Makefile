@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # kbuild for the GDS kernel-leak helper (Downfall lab, Stage 2).
 #
 # Build all variants:   ./build.sh

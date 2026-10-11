@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * M4a -- unprivileged KASLR slide probe: SIDT leak (negative control).
  *
  * `sidt` is not privileged on CPUs without UMIP (this i3-6100 has no

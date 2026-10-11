@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Stage 2 M3: per-byte reconstruction of the helper module's secret text
 # page through the kernel rep-movs copy-engine leak (SMT sibling sampler).
 #

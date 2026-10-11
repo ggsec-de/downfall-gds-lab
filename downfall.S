@@ -1,3 +1,7 @@
+/*
+ * GGSEC modifications and additions:
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
 /* Same-thread AVX2 Gather Data Sampling attempt.
  *
  * The shape follows the published FAULT_PF / single-thread sequence from

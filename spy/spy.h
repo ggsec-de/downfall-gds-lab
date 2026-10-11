@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
 /* Shared geometry for the cross-thread GDS spy (labs/downfall/spy).
  *
  * Oracle layout (same L1D rationale as labs/downfall/downfall-oneshot.c):

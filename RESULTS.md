@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: GPL-2.0-only
+Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+-->
+
 # Results, 2026-10-04
 
 Three alternating pairs of `SPEC=1` and `SPEC=1 SPEC_NOENCODE=1` on one

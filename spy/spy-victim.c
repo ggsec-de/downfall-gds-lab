@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * Cross-thread GDS spy -- victim side (Downfall lab, Stage 1).
  *
  * Pins itself (CPU=3 default, the SMT sibling of the attacker's CPU 1),

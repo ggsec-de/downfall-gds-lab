@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Raw diagnostic dump for the cross-thread spy (labs/downfall/spy, Stage 1).
 #
 # Runs VERBOSE=1 passes so the per-trial hot classes can be inspected:

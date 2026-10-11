@@ -1,4 +1,8 @@
 /*
+ * GGSEC modifications and additions:
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * Same-thread Downfall / Gather Data Sampling canary (CVE-2022-40982).
  *
  * Follows the published single-thread sequence from the Downfall

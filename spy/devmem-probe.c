@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * Probe /dev/mem MMIO candidates for the UC assist page (run as root).
  *
  * Prints open/mmap status, the first byte and a load latency per

@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * M4b -- unprivileged KASLR slide probe: prefetch side channel (v2).
  *
  * Gruss et al., "Prefetch Side-Channel Attacks: Bypassing SMAP and

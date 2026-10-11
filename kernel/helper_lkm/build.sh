@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Build gds_helper_lkm.ko for all three gadget variants.
 #
 # The module file name is the same for every variant. kbuild's

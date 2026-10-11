@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Stage 2 M3b: reconstruct bytes of the running kernel's linux_banner
 # through the bytewalk copy-engine leak (SMT sibling sampler).
 #

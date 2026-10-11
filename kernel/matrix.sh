@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Stage 2 quick test matrix: (trigger, attacker) pairs, logs to /tmp/kt-<label>.log.
 #
 # Usage (as the normal user, from this directory):

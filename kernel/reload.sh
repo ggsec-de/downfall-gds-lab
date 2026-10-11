@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 # Reload the freshly built helper module (BUG variant) for the Stage 2 lab.
 #
 # Build first (./helper_lkm/build.sh), then:

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: GPL-2.0-only
+# Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
 CC      ?= gcc
 CFLAGS  ?= -O2 -Wall -Wextra -Werror -fcf-protection=none -fno-tree-vectorize
 LDFLAGS ?=

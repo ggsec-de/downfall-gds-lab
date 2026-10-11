@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: GPL-2.0-only
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * ktrigger -- Stage 2 trigger for the kernel memcpy gadget (labs/downfall/
  * kernel).
  *

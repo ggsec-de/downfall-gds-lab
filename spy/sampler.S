@@ -1,3 +1,7 @@
+/*
+ * GGSEC modifications and additions:
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
 /* Cross-thread GDS sampler (AVX2 port of the flowyroll/downfall
  * s_load_encode shape, retargeted to this lab's L1D geometry).
  *

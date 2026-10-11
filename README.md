@@ -1,3 +1,8 @@
+<!--
+SPDX-License-Identifier: GPL-2.0-only
+Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+-->
+
 # Downfall / GDS lab -- same-thread canary, cross-thread spy, kernel rep-movs leak
 
 Educational reproduction of Gather Data Sampling (CVE-2022-40982, "Downfall",
@@ -228,6 +233,11 @@ credit to the original author.
 
 ## License and scope
 
-All other code in this lab is published for research and educational use,
-as-is, without warranty of any kind. Use only on hardware you own and
-control.
+Original files carrying a GPL-2.0-only SPDX header are licensed under GPLv2 only, without warranty. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md) for the exact scope and upstream exclusions.
+
+
+## Licensing and copyright
+
+Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+
+Licensing is file-specific. See [LICENSE_SCOPE.md](LICENSE_SCOPE.md) and [LICENSE](LICENSE); upstream code and notices retain their existing terms.

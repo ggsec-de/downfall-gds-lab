@@ -1,4 +1,8 @@
 /*
+ * GGSEC modifications and additions:
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+/*
  * Cross-thread GDS spy -- attacker side (Downfall lab, Stage 1).
  *
  * Samples vector-register-file data through a UC-assist vpgatherdq (AVX2

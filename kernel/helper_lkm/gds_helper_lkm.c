@@ -1,4 +1,7 @@
-// SPDX-License-Identifier: GPL-2.0
+/*
+ * Copyright (C) 2026 Maciej Gojny, GG Advanced IT Security UG
+ */
+// SPDX-License-Identifier: GPL-2.0-only
 /*
  * gds_helper_lkm -- an ioctl-triggered memcpy gadget for the GDS kernel
  * leak lab (labs/downfall/kernel).
